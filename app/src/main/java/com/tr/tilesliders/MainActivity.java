@@ -1,9 +1,12 @@
 package com.tr.tilesliders;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -12,8 +15,25 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
 
+        GridView gridview = (GridView) findViewById(R.id.gridview);
+        gridview.setAdapter(new ImageAdapter(this));
+
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                ImageAdapter adapter = (ImageAdapter) parent.getAdapter();
+
+                int tileEmptyPosition = adapter.getTileEmptyPosition();
+                if (position - 3 == tileEmptyPosition || position + 3 == tileEmptyPosition ||
+                        (position - 1 == tileEmptyPosition && position % 3 > 0) ||
+                        (position + 1 == tileEmptyPosition && position % 3 < 2)) {
+
+                    adapter.swapItems(position, tileEmptyPosition);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

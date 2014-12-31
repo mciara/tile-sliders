@@ -4,5 +4,8 @@
     <string name="app_name">TileSliders</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="edit_message">Enter a Message</string>
+    <string name="button_send">Send</string>
+§    <string name="title_activity_top_scores">TopScoresActivity</string>
 
 </resources>
