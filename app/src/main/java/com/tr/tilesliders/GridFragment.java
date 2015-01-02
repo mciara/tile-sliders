@@ -7,19 +7,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 /**
  * Author: Maciej Ciara
  * Created: 02/01/2015 10:35.
  */
 public class GridFragment extends Fragment {
+    private GameContoller gameContoller = new GameContoller();
 
     public GridFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_grid_view, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_grid_view, container, false);
 
         GridView gridview = (GridView) rootView.findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter(rootView.getContext()));
@@ -27,14 +29,25 @@ public class GridFragment extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 ImageAdapter adapter = (ImageAdapter) parent.getAdapter();
+                if (!gameContoller.isInProgress()) {
+                    gameContoller.startGame();
+                }
 
                 int tileEmptyPosition = adapter.getTileEmptyPosition();
-                if (position - 3 == tileEmptyPosition || position + 3 == tileEmptyPosition ||
+                boolean isValidTileClicked = position - 3 == tileEmptyPosition || position + 3 == tileEmptyPosition ||
                         (position - 1 == tileEmptyPosition && position % 3 > 0) ||
-                        (position + 1 == tileEmptyPosition && position % 3 < 2)) {
+                        (position + 1 == tileEmptyPosition && position % 3 < 2);
 
+                if (isValidTileClicked) {
                     adapter.swapItems(position, tileEmptyPosition);
                     adapter.notifyDataSetChanged();
+                    gameContoller.addMove();
+
+                    if (adapter.isGameFinished()) {
+                        gameContoller.endGame();
+                        String text = gameContoller.getMoves() + " moves in " + gameContoller.getTime() + " seconds!";
+                        Toast.makeText(rootView.getContext(), text, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

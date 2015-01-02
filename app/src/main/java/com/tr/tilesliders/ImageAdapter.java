@@ -21,22 +21,24 @@ public class ImageAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
     private List<Integer> tiles = new ArrayList<>();
+    private List<Integer> tilesInPlace = new ArrayList<>();
 
     public ImageAdapter(Context context) {
         inflater = LayoutInflater.from(context);
 
-        tiles.add(R.drawable.tile1);
-        tiles.add(R.drawable.tile2);
-        tiles.add(R.drawable.tile3);
-        tiles.add(R.drawable.tile4);
-        tiles.add(TILE_EMPTY);
-        tiles.add(R.drawable.tile5);
-        tiles.add(R.drawable.tile6);
-        tiles.add(R.drawable.tile7);
-        tiles.add(R.drawable.tile8);
+        tilesInPlace.add(R.drawable.tile1);
+        tilesInPlace.add(R.drawable.tile2);
+        tilesInPlace.add(R.drawable.tile3);
+        tilesInPlace.add(R.drawable.tile4);
+        tilesInPlace.add(R.drawable.tile5);
+        tilesInPlace.add(R.drawable.tile6);
+        tilesInPlace.add(R.drawable.tile7);
+        tilesInPlace.add(R.drawable.tile8);
+        tilesInPlace.add(TILE_EMPTY);
 
-        long seed = System.nanoTime();
-        Collections.shuffle(tiles, new Random(seed));
+        tiles.addAll(tilesInPlace);
+
+        Collections.shuffle(tiles, new Random(System.nanoTime()));
     }
 
     public int getCount() {
@@ -47,12 +49,12 @@ public class ImageAdapter extends BaseAdapter {
         return tiles.get(position);
     }
 
-    public Object setItem(int position, Integer item) {
-        return tiles.set(position, item);
-    }
-
     public void swapItems(int firstPosition, int secondPosition) {
         Collections.swap(tiles, firstPosition, secondPosition);
+    }
+
+    public boolean isGameFinished() {
+        return tilesInPlace.equals(tiles);
     }
 
     public int getTileEmptyPosition() {
