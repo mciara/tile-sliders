@@ -16,23 +16,11 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GridView gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(this));
-
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                ImageAdapter adapter = (ImageAdapter) parent.getAdapter();
-
-                int tileEmptyPosition = adapter.getTileEmptyPosition();
-                if (position - 3 == tileEmptyPosition || position + 3 == tileEmptyPosition ||
-                        (position - 1 == tileEmptyPosition && position % 3 > 0) ||
-                        (position + 1 == tileEmptyPosition && position % 3 < 2)) {
-
-                    adapter.swapItems(position, tileEmptyPosition);
-                    adapter.notifyDataSetChanged();
-                }
-            }
-        });
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.main_container, new GridFragment())
+                    .commit();
+        }
     }
 
     @Override
