@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 /**
@@ -14,9 +15,15 @@ import android.widget.Toast;
  * Created: 02/01/2015 10:35.
  */
 public class GridFragment extends Fragment {
-    private GameContoller gameContoller = new GameContoller();
+    private GameController gameController;
+    private ImageAdapter imageAdapter;
 
     public GridFragment() {
+
+    }
+
+    public void setGameController(GameController gameController) {
+        this.gameController = gameController;
     }
 
     @Override
@@ -24,34 +31,33 @@ public class GridFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_grid_view, container, false);
 
         GridView gridview = (GridView) rootView.findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(rootView.getContext()));
+        imageAdapter = new ImageAdapter(rootView.getContext(), gameController.getTiles());
+        gridview.setAdapter(imageAdapter);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 ImageAdapter adapter = (ImageAdapter) parent.getAdapter();
-                if (!gameContoller.isInProgress()) {
-                    gameContoller.startGame();
+                if (!gameController.isInProgress()) {
+                    gameController.startGame();
                 }
 
-                int tileEmptyPosition = adapter.getTileEmptyPosition();
-                boolean isValidTileClicked = position - 3 == tileEmptyPosition || position + 3 == tileEmptyPosition ||
-                        (position - 1 == tileEmptyPosition && position % 3 > 0) ||
-                        (position + 1 == tileEmptyPosition && position % 3 < 2);
-
-                if (isValidTileClicked) {
-                    adapter.swapItems(position, tileEmptyPosition);
+                if (gameController.isValidTileClicked(position)) {
+                    gameController.swapTileWithEmpty(position);
                     adapter.notifyDataSetChanged();
-                    gameContoller.addMove();
+                    gameController.addMove();
 
-                    if (adapter.isGameFinished()) {
-                        gameContoller.endGame();
-                        String text = gameContoller.getMoves() + " moves in " + gameContoller.getTime() + " seconds!";
-                        Toast.makeText(rootView.getContext(), text, Toast.LENGTH_SHORT).show();
+                    if (gameController.isGameFinished()) {
+                        gameController.endGame();
+                        String text = gameController.getMoves() + " moves in " + gameController.getTime()/1000000000.0 + " seconds!";
+                        Toast.makeText(rootView.getContext(), text, Toast.LENGTH_LONG).show();
                     }
                 }
             }
         });
 
         return rootView;
+    }
+    public void refreshGrid() {
+        imageAdapter.notifyDataSetChanged();
     }
 }

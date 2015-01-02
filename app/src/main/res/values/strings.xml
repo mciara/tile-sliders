@@ -2,10 +2,10 @@
 <resources>
 
     <string name="app_name">TileSliders</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="action_start_game">Start game!</string>
     <string name="action_settings">Settings</string>
-    <string name="edit_message">Enter a Message</string>
-    <string name="button_send">Send</string>
-§    <string name="title_activity_top_scores">TopScoresActivity</string>
+    <string name="action_show_top_scores">Show Top Scores</string>
+    <string name="action_reset_top_scores">Reset Top Scores</string>
+    <string name="title_activity_top_scores">Top Scores</string>
 
 </resources>
