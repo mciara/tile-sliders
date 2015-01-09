@@ -1,5 +1,7 @@
 package com.tr.tilesliders;
 
+import com.tr.tilesliders.database.Score;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,26 +45,14 @@ public class GameController {
         startTime = System.nanoTime();
     }
 
-    public void endGame() {
+    public Score endGame() {
         time = System.nanoTime() - startTime;
         inProgress = false;
+        return new Score(moves, time);
     }
 
     public void addMove() {
         moves++;
-    }
-
-    /**
-     * Time of a game.
-     *
-     * @return time in nanoseconds
-     */
-    public long getTime() {
-        return time; // in nanoseconds
-    }
-
-    public int getMoves() {
-        return moves;
     }
 
     public boolean isInProgress() {

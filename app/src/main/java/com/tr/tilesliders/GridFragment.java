@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.tr.tilesliders.database.DataSource;
+import com.tr.tilesliders.database.Score;
 
 /**
  * Author: Maciej Ciara
@@ -17,13 +19,18 @@ import android.widget.Toast;
 public class GridFragment extends Fragment {
     private GameController gameController;
     private ImageAdapter imageAdapter;
-
-    public GridFragment() {
-
-    }
+    private DataSource dataSource;
 
     public void setGameController(GameController gameController) {
         this.gameController = gameController;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        dataSource = new DataSource(getActivity());
+        dataSource.open();
     }
 
     @Override
@@ -47,8 +54,10 @@ public class GridFragment extends Fragment {
                     gameController.addMove();
 
                     if (gameController.isGameFinished()) {
-                        gameController.endGame();
-                        String text = gameController.getMoves() + " moves in " + gameController.getTime()/1000000000.0 + " seconds!";
+                        Score score = gameController.endGame();
+                        String text = score.getMoves() + " moves in " + score.getTimeInSecondsWithDecimals(2) + " seconds!";
+                        dataSource.insertScore(score);
+
                         Toast.makeText(rootView.getContext(), text, Toast.LENGTH_LONG).show();
                     }
                 }
@@ -57,7 +66,27 @@ public class GridFragment extends Fragment {
 
         return rootView;
     }
+
     public void refreshGrid() {
         imageAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onPause() {
+        if (dataSource != null) {
+            dataSource.close();
+        }
+
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        if (dataSource != null) {
+            dataSource.open();
+        }
+
+        super.onResume();
+    }
+
 }

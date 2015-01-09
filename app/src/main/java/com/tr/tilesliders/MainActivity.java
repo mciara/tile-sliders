@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 public class MainActivity extends ActionBarActivity {
     private GameController gameController = new GameController();
-    GridFragment gridFragment;
+    private GridFragment gridFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +43,13 @@ public class MainActivity extends ActionBarActivity {
                 openTopScores();
                 return true;
 
-            //case R.id.action_settings:
-                //openSettings();
-            //    return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     private void openTopScores() {
-        Intent intent = new Intent(this, TopScoresActivity.class);
+        Intent intent = new Intent(this, ScoresActivity.class);
         startActivity(intent);
     }
 
