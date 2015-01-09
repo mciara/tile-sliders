@@ -20,11 +20,11 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String SCORE_COLUMN_NAME_DATE_ADDED = "date_added";
 
     private static final String SQL_CREATE_SCORE_TABLE =
-            "CREATE TABLE IF NOT EXISTS" + SCORE_TABLE_NAME + " (" +
+            "CREATE TABLE IF NOT EXISTS " + SCORE_TABLE_NAME + " (" +
                     SCORE_COLUMN_NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     SCORE_COLUMN_NAME_MOVES + " INTEGER NOT NULL," +
                     SCORE_COLUMN_NAME_TIME + " INTEGER NOT NULL," +
-                    SCORE_COLUMN_NAME_DATE_ADDED + " INTEGER NOT NULL," +
+                    SCORE_COLUMN_NAME_DATE_ADDED + " INTEGER NOT NULL" +
                     " )";
 
     private static final String SQL_DELETE_SCORE_TABLE = "DROP TABLE IF EXISTS " + SCORE_TABLE_NAME;

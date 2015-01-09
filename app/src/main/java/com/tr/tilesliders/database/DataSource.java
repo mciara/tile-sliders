@@ -20,7 +20,7 @@ public class DataSource {
             DbHelper.SCORE_COLUMN_NAME_MOVES,
             DbHelper.SCORE_COLUMN_NAME_TIME
     };
-    private String scoreSortOrder = DbHelper.SCORE_COLUMN_NAME_MOVES + " DESC, " + DbHelper.SCORE_COLUMN_NAME_TIME + " DESC";
+    private String scoreSortOrder = DbHelper.SCORE_COLUMN_NAME_MOVES + "," + DbHelper.SCORE_COLUMN_NAME_TIME;
 
 
     public DataSource(Context context) {
@@ -47,7 +47,7 @@ public class DataSource {
     public List<Score> getScores(int limit) {
         List<Score> scores = new ArrayList<>();
 
-        Cursor cursor = database.query(DbHelper.SCORE_TABLE_NAME, scoreColumnsToRead, null, null, null, null, scoreSortOrder, "LIMIT " + limit);
+        Cursor cursor = database.query(DbHelper.SCORE_TABLE_NAME, scoreColumnsToRead, null, null, null, null, scoreSortOrder, limit + "");
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
