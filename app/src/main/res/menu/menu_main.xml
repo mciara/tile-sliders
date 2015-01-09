@@ -1,17 +1,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".MainActivity">
 
-    <item android:id="@+id/action_start_game"
+    <item
+        android:id="@+id/action_start_game"
         android:icon="@drawable/ic_action_view_as_grid"
         android:title="@string/action_start_game"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
 
-    <item android:id="@+id/action_show_top_scores"
+    <item
+        android:id="@+id/action_show_top_scores"
         android:icon="@drawable/ic_action_important"
         android:title="@string/action_show_top_scores"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
 
     <!--<item android:id="@+id/action_settings" android:title="@string/action_settings"-->
-        <!--android:orderInCategory="100" app:showAsAction="never" />-->
+    <!--android:orderInCategory="100" app:showAsAction="never" />-->
 </menu>
