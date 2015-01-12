@@ -30,7 +30,7 @@ public class ScoresActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_top_scores, menu);
+        getMenuInflater().inflate(R.menu.menu_scores, menu);
         return true;
     }
 

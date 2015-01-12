@@ -6,7 +6,7 @@
     <item
         android:id="@+id/action_reset_scores"
         android:icon="@drawable/ic_action_discard"
-        android:title="@string/action_start_game"
+        android:title="@string/action_reset_top_scores"
         app:showAsAction="always"/>
 
 </menu>

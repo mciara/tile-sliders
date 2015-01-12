@@ -18,7 +18,7 @@
         </activity>
         <activity
             android:name=".ScoresActivity"
-            android:label="@string/title_activity_top_scores"
+            android:label="@string/title_back_to_game"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
