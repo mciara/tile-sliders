@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@+id/label"
-        android:textSize="45sp"/>
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/score_time"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@+id/label"
-        android:textSize="45sp"/>
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/score_moves"
@@ -32,6 +32,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@+id/label"
-        android:textSize="45sp"/>
+        android:textSize="30sp"/>
 
 </LinearLayout>
