@@ -1,11 +1,18 @@
 package com.tr.tilesliders;
 
+import android.text.TextUtils;
+
 import com.tr.tilesliders.database.Score;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * Author: Maciej Ciara
@@ -82,10 +89,47 @@ public class GameController {
         return tiles;
     }
 
+    public String getTilesAsString() {
+        return TextUtils.join(",", tiles);
+    }
+
     public void restartGame() {
         inProgress = false;
         moves = 0;
         randomizeTilesOrder();
+    }
+
+    public int getMoves() {
+        return moves;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public void setTiles(String tilesInString) {
+        String[] tilesArray = TextUtils.split(tilesInString, ",");
+        tiles = new ArrayList<>();
+
+        for (String tile : tilesArray) {
+            tiles.add(Integer.valueOf(tile));
+        }
+
+        if (isGameFinished()) {
+            randomizeTilesOrder();
+        }
+    }
+
+    public void setMoves(int moves) {
+        this.moves = moves;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setInProgress(boolean inProgress) {
+        this.inProgress = inProgress;
     }
 
     private void randomizeTilesOrder() {
