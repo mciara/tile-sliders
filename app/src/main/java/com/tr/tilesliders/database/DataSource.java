@@ -20,7 +20,7 @@ public class DataSource {
             DbHelper.SCORE_COLUMN_NAME_MOVES,
             DbHelper.SCORE_COLUMN_NAME_TIME
     };
-    private String scoreSortOrder = DbHelper.SCORE_COLUMN_NAME_MOVES + "," + DbHelper.SCORE_COLUMN_NAME_TIME;
+    private String scoreSortOrder = DbHelper.SCORE_COLUMN_NAME_TIME + "," + DbHelper.SCORE_COLUMN_NAME_MOVES;
 
 
     public DataSource(Context context) {
